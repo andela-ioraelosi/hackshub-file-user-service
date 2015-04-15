@@ -1,0 +1,35 @@
+{
+  "name": "hackshub-file-user-service",
+  "version": "0.0.1",
+  "description": "A simple user service for the Hackshub file service.",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test && node_modules/jasmine-node/bin/jasmine-node /tests/ --autotest --color"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://andela-ioraelosi@github.com/andela-ioraelosi/hackshub-file-user-service.git"
+  },
+  "keywords": [
+    "users",
+    "authentication",
+    "files"
+  ],
+  "author": "Ifeanyi Oraelosi <ifeanyioraelosi@gmail.com> (http://gnerkus.github.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andela-ioraelosi/hackshub-file-user-service/issues"
+  },
+  "homepage": "https://github.com/andela-ioraelosi/hackshub-file-user-service",
+  "dependencies": {
+    "body-parser": "^1.12.2",
+    "bookshelf": "^0.7.9",
+    "express": "^4.12.3",
+    "knex": "^0.7.6",
+    "pg": "^4.3.0"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5",
+    "supertest": "^0.15.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "node": true,
+  "eqeqeq": true,
+  "globalstrict": true,
+  "undef": true,
+  "immed": true,
+  "trailing": true,
+  "indent": 2,
+  "jasmine": true
+}
