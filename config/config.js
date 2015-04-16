@@ -20,7 +20,7 @@ module.exports = (function () {
         connection: {
           host: 'localhost',
           user: 'gnerkus',
-          password: '',
+          password: '@I651nyI#',
           database: 'fileusers_test',
           charset: 'utf-8'
         }
