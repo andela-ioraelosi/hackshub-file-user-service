@@ -12,7 +12,8 @@ module.exports = (function () {
           password: '@I651nyI#',
           database: 'fileusers',
           charset: 'utf-8'
-        }
+        },
+        tableName: 'users'
       },
 
       test: {
@@ -23,7 +24,8 @@ module.exports = (function () {
           password: '@I651nyI#',
           database: 'fileusers_test',
           charset: 'utf-8'
-        }
+        },
+        tableName: 'users'
       },
 
       production: {
@@ -34,7 +36,8 @@ module.exports = (function () {
           password: '',
           database: 'fileusers',
           charset: 'utf-8'
-        }
+        },
+        tableName: 'users'
       }
     },
 
