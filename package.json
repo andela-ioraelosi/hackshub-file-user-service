@@ -4,7 +4,7 @@
   "description": "A simple user service for the Hackshub file service.",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test && node_modules/jasmine-node/bin/jasmine-node /tests/ --autotest --color"
+    "test": "NODE_ENV=test && node_modules/jasmine-node/bin/jasmine-node tests/ --autotest --color"
   },
   "repository": {
     "type": "git",
