@@ -18,6 +18,7 @@ bookshelf.knex.schema.hasTable(tableName)
         table.string('password').notNullable().unique();
         table.string('last_name');
         table.string('first_name');
+        table.string('token').notNullable().unique();
         table.timestamps();
       })
       .then(function () {
