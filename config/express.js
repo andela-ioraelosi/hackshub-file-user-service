@@ -15,7 +15,7 @@ module.exports = (function () {
 
   app.use(bodyParser.json());
 
-  app.use('/api/v1', router);
+  app.use('/', router);
 
   return app;
 }());
