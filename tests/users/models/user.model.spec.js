@@ -21,7 +21,8 @@ describe('User Model: ', function () {
         email: 'userone@users.co',
         password: '1234',
         last_name: 'Zer',
-        first_name: 'Uze'
+        first_name: 'Uze',
+        token: 'tolkien'
       });
       done();
     });
@@ -36,7 +37,8 @@ describe('User Model: ', function () {
             email: 'userone@users.co',
             password: '1234',
             last_name: 'Zer',
-            first_name: 'Uze'
+            first_name: 'Uze',
+            token: 'tolkien'
           }));
           done();
         });
@@ -63,14 +65,16 @@ describe('User Model: ', function () {
           email: 'userone@users.co',
           password: '1234',
           last_name: 'Zer',
-          first_name: 'Uze'
+          first_name: 'Uze',
+          token: 'tolkein'
         },
         {
           username: 'user1',
           email: 'usertwo@users.co',
           password: '5678',
           last_name: 'Zer',
-          first_name: 'Uze'
+          first_name: 'Uze',
+          token: 'rice'
         }])
         .invokeThen('save')
         .then(function (users) {
@@ -103,14 +107,16 @@ describe('User Model: ', function () {
           email: 'userone@users.co',
           password: '1234',
           last_name: 'Zer',
-          first_name: 'Uze'
+          first_name: 'Uze',
+          token: 'tolkien'
         },
         {
           username: 'user2',
           email: 'userone@users.co',
           password: '5678',
           last_name: 'Zer',
-          first_name: 'Uze'
+          first_name: 'Uze',
+          token: 'rice'
         }])
         .invokeThen('save')
         .then(function (users) {
@@ -143,14 +149,58 @@ describe('User Model: ', function () {
           email: 'userone@users.co',
           password: '1234',
           last_name: 'Zer',
-          first_name: 'Uze'
+          first_name: 'Uze',
+          token: 'tolkien'
         },
         {
           username: 'user2',
           email: 'usertwo@users.co',
           password: '1234',
           last_name: 'Zer',
-          first_name: 'Uze'
+          first_name: 'Uze',
+          token: 'rice'
+        }])
+        .invokeThen('save')
+        .then(function (users) {
+
+        })
+        .catch(function (error) {
+          expect(error).toBeDefined();
+          done();
+        });
+    });
+
+    // Check that the new user cannot be saved if there's no token
+    it('should not save a user without a token', function (done) {
+      sampleUser.set({token: null});
+      sampleUser
+        .save()
+        .then(function (user) {
+        })
+        .catch(function (error) {
+          expect(error).toBeDefined();
+          done();
+        });
+    });
+
+    // Check that the new user cannot be saved if the token already exists
+    it('should not save if token is not unique', function (done) {
+      Users
+        .forge([{
+          username: 'user1',
+          email: 'userone@users.co',
+          password: '1234',
+          last_name: 'Zer',
+          first_name: 'Uze',
+          token: 'tolkien'
+        },
+        {
+          username: 'user2',
+          email: 'usertwo@users.co',
+          password: '5678',
+          last_name: 'Zer',
+          first_name: 'Uze',
+          token: 'tolkien'
         }])
         .invokeThen('save')
         .then(function (users) {
@@ -165,7 +215,7 @@ describe('User Model: ', function () {
     afterEach(function (done) {
 
       knex('users')
-        .where('username', 'user1')
+        .where(1, 1)
         .del()
         .then(function () {
           done();
@@ -183,7 +233,8 @@ describe('User Model: ', function () {
           email: 'userthree@users.co',
           password: '369',
           last_name: 'Zer',
-          first_name: 'Uze'
+          first_name: 'Uze',
+          token: 'tolkien'
         })
         .save()
         .then(function (user) {
@@ -232,7 +283,8 @@ describe('User Model: ', function () {
           email: 'userthree@users.co',
           password: '369',
           last_name: 'Zer',
-          first_name: 'Uze'
+          first_name: 'Uze',
+          token: 'tolkien'
         })
         .save()
         .then(function (user) {
