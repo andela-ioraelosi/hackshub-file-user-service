@@ -1,8 +1,9 @@
 'use strict';
 
 var request = require('supertest');
-
+var jwt = require('jsonwebtoken');
 var config = require('./../../../config/config');
+var secret = config.secret;
 var app = require('./../../../config/express');
 
 var knex = require('knex')({
@@ -151,7 +152,7 @@ describe('User API endpoints: ', function () {
       done();
     });
 
-    it('should authenticate the user if no username was submitted', function (done) {
+    it('should not authenticate the user if no username was submitted', function (done) {
 
       sampleUser
         .save()
@@ -159,7 +160,7 @@ describe('User API endpoints: ', function () {
           request(app)
             .post('/login')
             .send({username: undefined, password: '1234', email: 'userone@users.co'})
-            .expect(400)
+            .expect(401)
             .end(function (err, response) {
               expect(response.body).toEqual(jasmine.objectContaining({
                 data: 'Incorrect username/password.'
@@ -178,7 +179,7 @@ describe('User API endpoints: ', function () {
           request(app)
             .post('/login')
             .send({username: 'user1', password: undefined, email: 'userone@users.co'})
-            .expect(400)
+            .expect(401)
             .end(function (err, response) {
               expect(response.body).toEqual(jasmine.objectContaining({
                 data: 'Incorrect username/password.'
@@ -236,5 +237,97 @@ describe('User API endpoints: ', function () {
     });
 
   });
+
+  describe('GET /api/v1/users - ', function () {
+
+    beforeEach(function (done) {
+
+      Users
+        .forge([{
+          username: 'user1',
+          email: 'userone@users.co',
+          password: '1234',
+          last_name: 'Zer',
+          first_name: 'Uze',
+          token: 'tolkein'
+        },
+        {
+          username: 'user1',
+          email: 'usertwo@users.co',
+          password: '5678',
+          last_name: 'Zer',
+          first_name: 'Uze',
+          token: 'rice'
+        }])
+        .invokeThen('save')
+        .then(function (users) {
+          done();
+        });
+    });
+
+  });
+
+    it('should return an error message if the user is not authenticated.', function (done) {
+
+      request(app)
+        .get('/api/v1/users')
+        .expect(401)
+        .end(function (error, response) {
+          expect(response.body).toEqual(jasmine.objectContaining({
+            data: 'Unauthorized.'
+          }));
+          done();
+        });
+    });
+
+    it('should return an array of users if user is authenticated.', function (done) {
+
+      var itspec = this;
+      itspec.userToken = null;
+      User
+        .forge({
+          username: 'user3',
+          password: '9012',
+          email: 'userthree@users.co',
+          last_name: 'Uzer',
+          first_name: 'New',
+          token: '1234'
+        })
+        .save()
+        .then(function (user) {
+          itspec.userToken = jwt.sign(user, secret);
+          user
+            .where({
+              username: 'user3'
+            })
+            .save({
+              'token': itspec.userToken
+            }, {
+              method: 'update',
+              patch: true
+            })
+            .then(function (user3) {
+              request(app)
+                .get('/api/v1/users')
+                .set('authorization', itspec.userToken)
+                .expect(200)
+                .end(function (error, response) {
+                  expect(response.body.data[0]).toEqual(jasmine.objectContaining({
+                    email: 'userthree@users.co'
+                  }));
+                  done();
+                });
+            });
+        });
+    });
+
+    afterEach(function (done) {
+      knex('users')
+        .where(1, 1)
+        .del()
+        .then(function () {
+          done();
+        });
+    });
 
 });
