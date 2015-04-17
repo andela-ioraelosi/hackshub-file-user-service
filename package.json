@@ -4,7 +4,7 @@
   "description": "A simple user service for the Hackshub file service.",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test && node_modules/jasmine-node/bin/jasmine-node tests/ --autotest --color"
+    "test": "NODE_ENV=test && node_modules/jasmine-node/bin/jasmine-node tests/ --autotest --color --verbose"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,12 @@
   },
   "homepage": "https://github.com/andela-ioraelosi/hackshub-file-user-service",
   "dependencies": {
+    "bcrypt": "^0.8.2",
     "body-parser": "^1.12.2",
     "bookshelf": "^0.7.9",
+    "cors": "^2.5.3",
     "express": "^4.12.3",
+    "jsonwebtoken": "^5.0.0",
     "knex": "^0.7.6",
     "pg": "^4.3.0"
   },

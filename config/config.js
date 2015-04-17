@@ -41,7 +41,8 @@ module.exports = (function () {
       }
     },
 
-    port: process.env.PORT || 5556
+    port: process.env.PORT || 5556,
+    secret: '@Fun3t9on_xor(45v91nt1rt){}#'
   };
 
 }());
