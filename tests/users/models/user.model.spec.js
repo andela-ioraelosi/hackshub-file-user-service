@@ -215,7 +215,7 @@ describe('User Model: ', function () {
     afterEach(function (done) {
 
       knex('users')
-        .where('username', 'user1')
+        .where(1, 1)
         .del()
         .then(function () {
           done();
